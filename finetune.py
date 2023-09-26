@@ -30,11 +30,11 @@ def train(
     num_epochs: int = 1,
     learning_rate: float = 3e-4,
     cutoff_len: int = 512,
-    val_set_size: int = 0, # we don't need val in our case.
+    val_set_size: int = 0.001, # we don't need val in our case.
     
     # lora hyperparams
-    lora_r: int = 64,
-    lora_alpha: int = 64,
+    lora_r: int = 4,
+    lora_alpha: int = 4,
     lora_dropout: float = 0.05,
     lora_target_modules: List[str] = [
         "q_proj",
@@ -71,12 +71,15 @@ def train(
     os.environ["WANDB_WATCH"] = wandb_watch
     os.environ["WANDB_LOG_MODEL"] = wandb_log_model
 
+    if model=
     model = LlamaForCausalLM.from_pretrained(
         base_model,
         load_in_8bit=True,
         torch_dtype=torch.float16,
         device_map=device_map,
     )
+    model_2=  GPT2ForQuestionAnswering.from_pretrained("gpt2")
+    
 
     tokenizer = LlamaTokenizer.from_pretrained(base_model)
 
